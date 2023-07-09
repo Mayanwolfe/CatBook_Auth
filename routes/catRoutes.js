@@ -4,7 +4,7 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(catController.getAllCats)
+  .get(catController.getAllCats);
 
 router
   .route('/upload')

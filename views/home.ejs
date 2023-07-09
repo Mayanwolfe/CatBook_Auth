@@ -9,29 +9,32 @@
     <%- include('partials/navbar') %>
 
     <div class="container mt-4">
-  <div class="row">
-    <% cats.forEach(cat => { %>
-      <div class="col-lg-3 col-md-6 col-sm-6 mb-4"> <!-- Bootstrap classes to create four cards per row -->
-        <div class="card h-100">
-          <img class="card-img-top" src="/images/<%= cat.image %>" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title"><%= cat.name %></h5>
-            <p class="card-text">
-              Age: <%= cat.age %> <br>
-              Favorite food: <%= cat.favoriteFood %> <br>
-              Fun fact: <%= cat.funFact %>
-            </p>
+      <div class="row">
+        <% cats.forEach(cat => { %>
+          <div class="col-lg-3 col-md-6 col-sm-6 mb-4"> <!-- Bootstrap classes to create four cards per row -->
+            <div class="card h-100">
+              <img class="card-img-top" src="/images/<%= cat.image %>" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title"><%= cat.name %></h5>
+                <p class="card-text">
+                  Age: <%= cat.age %> <br>
+                  Favorite food: <%= cat.favoriteFood %> <br>
+                  Fun fact: <%= cat.funFact %> <br>
+                  Posted by: <%= cat.owner.username %>
+                </p>
+                <% if (currentUser && cat.owner._id.equals(currentUser._id)) { %>
+                <div class="card-footer">
+                  <a href="/edit/<%= cat._id %>" class="btn btn-primary">Edit</a>
+                  <form action="/delete/<%= cat._id %>" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                </div>
+                <% } %>
+              </div>
+            </div>
           </div>
-          <div class="card-footer">
-            <a href="/edit/<%= cat._id %>" class="btn btn-primary">Edit</a>
-            <form action="/delete/<%= cat._id %>" method="POST" style="display:inline;">
-              <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
-          </div>
-        </div>
+        <% }); %>
       </div>
-    <% }); %>
-  </div>
-</div>
+    </div>
   </body>
 </html>
